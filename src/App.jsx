@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Container, HStack, Input, Button } from "@chakra-ui/react";
 import { TodoList } from "./components/organisms";
-import { makeId } from "./utils";
+import { makeId, isCommandKeyPressed } from "./utils";
 
 export default function App() {
   const [title, setTitle] = useState("");
@@ -43,12 +43,19 @@ export default function App() {
     [todoList]
   );
 
+  const addTodoByShortCutKey = (e) => {
+    if (isCommandKeyPressed(e) && e.keyCode === 13) {
+      addTodo();
+    }
+  };
+
   return (
     <Container h="full" mt="8">
       <HStack mb="8">
         <Input
           placeholder="タイトル"
           value={title}
+          onKeyDown={addTodoByShortCutKey}
           onChange={(e) => setTitle(e.target.value)}
         />
         <Button onClick={addTodo}>追加</Button>

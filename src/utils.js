@@ -8,3 +8,7 @@ export function makeId(length) {
   }
   return result;
 }
+
+export function isCommandKeyPressed(e) {
+  return (e.ctrlKey && !e.metaKey) || (!e.ctrlKey && e.metaKey);
+}
