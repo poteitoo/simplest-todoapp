@@ -9,7 +9,7 @@ import {
   TableContainer,
   useRadioGroup,
 } from "@chakra-ui/react";
-import { MyEditableInput, RadioCard } from "./molecules";
+import { EditableInput, RadioCard } from "./molecules";
 
 export function TodoList({ todoList, onChangeStatus }) {
   const todoStatuses = {
@@ -32,7 +32,7 @@ export function TodoList({ todoList, onChangeStatus }) {
             return (
               <Tr key={todo.id}>
                 <Td>
-                  <MyEditableInput title={todo.title} />
+                  <EditableInput title={todo.title} />
                 </Td>
                 <Td>
                   <RadioButtonList
