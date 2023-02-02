@@ -1,33 +1,42 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { Container, HStack, Input, Button } from "@chakra-ui/react";
+import { TodoList } from "./components/organisms";
+import { makeId } from "./utils";
 
-function App() {
-  const [count, setCount] = useState(0);
+export default function App() {
+  const [title, setTitle] = useState("");
+  const [todoList, setTodoList] = useState([]);
+
+  const addTodo = () => {
+    if (title.length === 0) return;
+    const todo = {
+      title,
+      id: makeId(5),
+      status: "pendding",
+      createdAt: Date(),
+      updatedAt: Date(),
+    };
+    setTodoList((s) => [todo, ...s]);
+  };
+  const updateTodoStatus = (id, status) => {
+    const index = todoList.findIndex((todo) => todo.id === id);
+    if (index < 0) return;
+    todoList[index].status = status;
+    todoList[index].updatedAt = Date();
+    setTodoList(todoList);
+  };
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <Container h="full" mt="8">
+      <HStack mb="8">
+        <Input
+          placeholder="タイトル"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <Button onClick={() => addTodo()}>追加</Button>
+      </HStack>
+      <TodoList todoList={todoList} onChangeStatus={updateTodoStatus} />
+    </Container>
   );
 }
-
-export default App;
