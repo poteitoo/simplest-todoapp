@@ -2,10 +2,23 @@ import { useState } from "react";
 import { Container, HStack, Input, Button } from "@chakra-ui/react";
 import { TodoList } from "./components/organisms";
 import { makeId } from "./utils";
+import { useEffect } from "react";
 
 export default function App() {
   const [title, setTitle] = useState("");
   const [todoList, setTodoList] = useState([]);
+
+  useEffect(() => {
+    const todo = localStorage.getItem("todoapp");
+    const parsedTodo = JSON.parse(todo);
+    if (parsedTodo.length > 0) setTodoList(parsedTodo);
+  }, []);
+
+  useEffect(() => {
+    const todo = JSON.stringify(todoList);
+    localStorage.setItem("todoapp", todo);
+    console.table(todoList);
+  }, [todoList]);
 
   const addTodo = () => {
     if (title.length === 0) return;
@@ -23,7 +36,7 @@ export default function App() {
     if (index < 0) return;
     todoList[index].status = status;
     todoList[index].updatedAt = Date();
-    setTodoList(todoList);
+    setTodoList([...todoList]);
   };
 
   return (
