@@ -36,6 +36,7 @@ export function TodoList({ todoList, onChangeStatus }) {
                 </Td>
                 <Td>
                   <RadioButtonList
+                    defaultValue={todo.status}
                     options={todoStatuses}
                     onChangeStatus={(newStatus) =>
                       onChangeStatus(todo.id, newStatus)
@@ -51,10 +52,10 @@ export function TodoList({ todoList, onChangeStatus }) {
   );
 }
 
-function RadioButtonList({ options, onChangeStatus }) {
+function RadioButtonList({ defaultValue, options, onChangeStatus }) {
   const { getRootProps, getRadioProps } = useRadioGroup({
-    name: "framework",
-    defaultValue: "pendding",
+    name: "todoapp",
+    defaultValue: defaultValue,
     onChange: onChangeStatus,
   });
   const group = getRootProps();
