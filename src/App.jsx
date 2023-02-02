@@ -10,6 +10,7 @@ export default function App() {
 
   useEffect(() => {
     const todo = localStorage.getItem("todoapp");
+    if (!todo) return;
     const parsedTodo = JSON.parse(todo);
     if (parsedTodo.length > 0) setTodoList(parsedTodo);
   }, []);
