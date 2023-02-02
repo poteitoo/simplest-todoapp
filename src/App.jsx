@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Container, HStack, Input, Button } from "@chakra-ui/react";
 import { TodoList } from "./components/organisms";
 import { makeId } from "./utils";
@@ -19,7 +19,7 @@ export default function App() {
     localStorage.setItem("todoapp", todo);
   }, [todoList]);
 
-  const addTodo = () => {
+  const addTodo = useCallback(() => {
     if (title.length === 0) return;
     const todo = {
       title,
@@ -28,15 +28,20 @@ export default function App() {
       createdAt: Date(),
       updatedAt: Date(),
     };
+    setTitle("");
     setTodoList((s) => [todo, ...s]);
-  };
-  const updateTodoStatus = (id, status) => {
-    const index = todoList.findIndex((todo) => todo.id === id);
-    if (index < 0) return;
-    todoList[index].status = status;
-    todoList[index].updatedAt = Date();
-    setTodoList([...todoList]);
-  };
+  }, [title]);
+
+  const updateTodoStatus = useCallback(
+    (id, status) => {
+      const index = todoList.findIndex((todo) => todo.id === id);
+      if (index < 0) return;
+      todoList[index].status = status;
+      todoList[index].updatedAt = Date();
+      setTodoList([...todoList]);
+    },
+    [todoList]
+  );
 
   return (
     <Container h="full" mt="8">
@@ -46,7 +51,7 @@ export default function App() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <Button onClick={() => addTodo()}>追加</Button>
+        <Button onClick={addTodo}>追加</Button>
       </HStack>
       <TodoList todoList={todoList} onChangeStatus={updateTodoStatus} />
     </Container>
