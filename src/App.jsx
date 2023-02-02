@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, HStack, Input, Button } from "@chakra-ui/react";
 import { TodoList } from "./components/organisms";
 import { makeId } from "./utils";
-import { useEffect } from "react";
 
 export default function App() {
   const [title, setTitle] = useState("");
