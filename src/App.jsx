@@ -18,7 +18,6 @@ export default function App() {
   useEffect(() => {
     const todo = JSON.stringify(todoList);
     localStorage.setItem("todoapp", todo);
-    console.table(todoList);
   }, [todoList]);
 
   const addTodo = () => {
