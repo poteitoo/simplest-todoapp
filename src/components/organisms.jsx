@@ -19,7 +19,7 @@ export function TodoList({ todoList, onChangeStatus }) {
     canceled: "😱",
   };
   return (
-    <TableContainer h="3xl" overflowY="auto" pos="relative">
+    <TableContainer h="xl" overflowY="auto" pos="relative">
       <Table>
         <Thead>
           <Tr>
