@@ -50,8 +50,8 @@ export default function App() {
   };
 
   return (
-    <Container h="full" mt="8">
-      <HStack mb="8">
+    <Container>
+      <HStack my={8}>
         <Input
           placeholder="タイトル"
           value={title}
