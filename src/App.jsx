@@ -32,6 +32,18 @@ export default function App() {
     setTodoList((s) => [todo, ...s]);
   }, [title]);
 
+  const updateTodoText = useCallback(
+    (id, text) => {
+      const index = todoList.findIndex((todo) => todo.id === id);
+      if (index < 0) return;
+      todoList[index].title = text;
+      todoList[index].updatedAt = Date();
+      setTodoList([...todoList]);
+    },
+
+    [todoList]
+  );
+
   const updateTodoStatus = useCallback(
     (id, status) => {
       const index = todoList.findIndex((todo) => todo.id === id);
@@ -60,7 +72,11 @@ export default function App() {
         />
         <Button onClick={addTodo}>追加</Button>
       </HStack>
-      <TodoList todoList={todoList} onChangeStatus={updateTodoStatus} />
+      <TodoList
+        todoList={todoList}
+        onChangeText={updateTodoText}
+        onChangeStatus={updateTodoStatus}
+      />
     </Container>
   );
 }

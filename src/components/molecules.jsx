@@ -6,11 +6,11 @@ import {
   useRadio,
 } from "@chakra-ui/react";
 
-export function EditableInput({ title }) {
+export function EditableInput({ title, onChangeText }) {
   return (
     <Editable defaultValue={title} my={2}>
       <EditablePreview />
-      <ChakraEditableInput />
+      <ChakraEditableInput onChange={(e) => onChangeText(e.target.value)} />
     </Editable>
   );
 }

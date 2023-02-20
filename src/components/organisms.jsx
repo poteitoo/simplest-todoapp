@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { EditableInput, RadioCard } from "./molecules";
 
-export function TodoList({ todoList, onChangeStatus }) {
+export function TodoList({ todoList, onChangeText, onChangeStatus }) {
   const todoStatuses = {
     completed: "🥳",
     progressing: "🔥",
@@ -32,7 +32,10 @@ export function TodoList({ todoList, onChangeStatus }) {
             return (
               <Tr key={todo.id}>
                 <Td>
-                  <EditableInput title={todo.title} />
+                  <EditableInput
+                    title={todo.title}
+                    onChangeText={(newText) => onChangeText(todo.id, newText)}
+                  />
                 </Td>
                 <Td>
                   <RadioButtonList
